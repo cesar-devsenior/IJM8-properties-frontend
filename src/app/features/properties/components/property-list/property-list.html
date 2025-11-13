@@ -1,11 +1,11 @@
-<main>
+<div class="container">
     <!-- Filtro de propiedades -->
-    <section class="search-bar">
-        <input type="text" class="search-input" placeholder="Filtrar por ciudad">
-        <button type="button" class="search-button">Buscar</button>
+    <section class="row p-3 mb-1 shadow-sm">
+        <input type="text" class="form-control-lg col-10 mx-2" placeholder="Filtrar por ciudad">
+        <button type="button" class="btn btn-primary col">Buscar</button>
     </section>
 
-    <section class="property-list">
+    <section class="row">
         @for (property of properties; track property.id) {
         <div class="property-card">
             <img class="property-image" [src]="property.image" [alt]="property.address">
@@ -22,4 +22,4 @@
         }
     </section>
 
-</main>
+</div>
