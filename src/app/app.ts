@@ -1,15 +1,11 @@
 import { Component, signal } from '@angular/core';
+import { PropertyList } from './features/properties/components/property-list/property-list';
 
 @Component({
   selector: 'app-root',
-  imports: [],
+  imports: [PropertyList],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
 export class App {
-  protected name = "Cesar Augusto Diaz";
-
-  changeName(): void {
-    this.name = "Alonso Vargas";
-  }
 }

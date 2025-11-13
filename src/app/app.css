@@ -1,25 +1,3 @@
 h1 {
     text-align: center;
-    color: saddlebrown;
-}
-
-p {
-    text-align: center;
-}
-
-.center {
-    display: block;
-    text-align: center;
-}
-
-button {
-    padding: 20px 10px;
-    background-color: rgb(86, 86, 176);
-    border-radius: 15px;
-    color: aqua;
-    font-weight: bolder;
-}
-
-button:hover {
-    background-color: rgb(55, 55, 162);
 }
