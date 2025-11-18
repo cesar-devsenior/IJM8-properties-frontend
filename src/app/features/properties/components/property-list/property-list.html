@@ -1,25 +1,19 @@
 <div class="container">
-    <!-- Filtro de propiedades -->
-    <section class="row p-3 mb-1 shadow-sm">
-        <input type="text" class="form-control-lg col-10 mx-2" placeholder="Filtrar por ciudad">
-        <button type="button" class="btn btn-primary col">Buscar</button>
-    </section>
+  <!-- Filtro de propiedades -->
+  <section class="row p-3 mb-1 shadow-sm">
+    <input type="text" class="form-control-lg col-10 mx-2" placeholder="Filtrar por ciudad">
+    <button type="button" class="btn btn-primary col" (click)="addProperties()">Buscar</button>
+  </section>
 
-    <section class="row">
-        @for (property of properties; track property.id) {
-        <div class="property-card">
-            <img class="property-image" [src]="property.image" [alt]="property.address">
-            <div>
-                <h2 class="address">{{ property.address }}, {{ property.city }}</h2>
-                <p class="description">{{ property.description }}</p>
-                <div class="values">
-                    <span class="price">{{ property.price }}</span>
-                    <span class="rooms">{{ property.bedrooms }} Hab. | {{ property.bathrooms }} Baños</span>
-                </div>
-                <button class="details-button">Ver detalles</button>
-            </div>
-        </div>
-        }
-    </section>
+  <section>
+    <h3>Hay un total de {{ total() }} propiedades</h3>
+  </section>
+
+  <section class="row">
+    @for (property of properties(); track property.id) {
+      <app-property-card class="col-12 col-lg-6 col-xl-4"  [property]="property"></app-property-card>
+    }
+  </section>
+
 
 </div>
