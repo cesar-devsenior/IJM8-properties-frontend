@@ -1,0 +1,41 @@
+<main class="mt-5">
+    <h3 class="mb-3">Nueva propiedad</h3>
+    <div class="mb-3">
+        <label for="address" class="form-label">Address</label>
+        <input type="text" class="form-control" id="address" placeholder="Cra 0 # 00 - 00" 
+          [value]="property().address">
+    </div>
+    <div class="mb-3">
+        <label for="description" class="form-label">Descripcion</label>
+        <textarea class="form-control" id="description" rows="3"  
+          [value]="property().description"></textarea>
+    </div>
+    <div class="mb-3">
+        <label for="city" class="form-label">City</label>
+        <input type="text" class="form-control" id="city" placeholder="Bogotá" 
+          [value]="property().city">
+    </div>
+    <div class="mb-3">
+        <label for="price" class="form-label">Precio</label>
+        <input type="number" class="form-control" id="price" placeholder="500.00" 
+          [value]="property().price">
+    </div>
+    <div class="row">
+        <div class="mb-3 col">
+            <label for="bedrooms" class="form-label">Habitaciones</label>
+            <input type="number" class="form-control" id="bedrooms" placeholder="3" 
+                [value]="property().bedrooms">
+        </div>
+        <div class="mb-3 col">
+            <label for="bathrooms" class="form-label">Baños</label>
+            <input type="number" class="form-control" id="bathrooms" placeholder="2" 
+                [value]="property().bathrooms">
+        </div>
+    </div>
+    <div class="mb-3">
+        <label for="image" class="form-label">URL de Imagen</label>
+        <input type="text" class="form-control" id="image" placeholder="http://xxx.jpg" 
+          [value]="property().image">
+    </div>
+    <button class="btn btn-primary mt-3 mb-3 w-100" (click)="onSave()">Guardar</button>
+</main>

@@ -1,4 +1,4 @@
-import { Component, input, Input } from '@angular/core';
+import { Component, input, Input, output } from '@angular/core';
 import { Property } from '../../model/property';
 
 @Component({
@@ -10,4 +10,9 @@ import { Property } from '../../model/property';
 export class PropertyCard {
   // @Input({ required: true }) property!: Property;
   property = input.required<Property>();
+  showDetails = output<number>();
+
+  onShowDetails() {
+    this.showDetails.emit(this.property().id);
+  }
 }
