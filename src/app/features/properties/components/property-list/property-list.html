@@ -13,7 +13,10 @@
      </section>
   } @else {
     <section>
-      <h3>Hay un total de {{ total() }} propiedades</h3>
+      <div class="d-flex justify-content-between mt-3 mb-3">
+        <h3>Hay un total de {{ total() }} propiedades</h3>
+        <button class="btn btn-secondary" routerLink="/properties/new">Nueva propiedad</button>
+      </div>
     </section>
 
     <section class="row">

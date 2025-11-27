@@ -2,15 +2,17 @@ import { Component, computed, effect, inject, OnInit, signal } from '@angular/co
 import { Property } from '../../model/property';
 import { PropertyCard } from "../property-card/property-card";
 import { PropertyService } from '../../service/property-service';
+import { Router, RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-property-list',
-  imports: [PropertyCard],
+  imports: [PropertyCard, RouterLink],
   templateUrl: './property-list.html',
   styleUrl: './property-list.css',
 })
 export class PropertyList implements OnInit {
   private propertyService = inject(PropertyService);
+  private router = inject(Router);
 
   protected readonly isLoading = signal(true);
   protected readonly properties = signal<Property[]>([]);
@@ -41,7 +43,8 @@ export class PropertyList implements OnInit {
   }
 
   showDetails(id: number): void {
-    alert(`Ver detalles de la propiedad ${id}`);
+    // alert(`Ver detalles de la propiedad ${id}`);
+    this.router.navigate(['properties', id]);
   }
 
   search() {
