@@ -55,33 +55,32 @@ export class PropertyService {
   }
 
   getAll(): Observable<Property[]> {
-    return of(this.properties)
-      .pipe(delay(3000));
+    return of(this.properties).pipe(delay(300));
   }
 
   getById(id: number): Observable<Property | undefined> {
-    return of(this.properties.find(p => p.id === id));
+    return of(this.properties.find(p => p.id === id)).pipe(delay(300));
   }
 
-  create(info: Property): Observable<void> {
-    // Si el ID esta vacio, genere un nuevo ID
-    if(!info.id) {
-      console.log('El ID está vacio');
-      
-      const maxId = this.properties.map(p => p.id).reduce((a, b) => a > b ? a : b);
-      info.id = maxId + 1;
-    } else {
-      console.log('Buscando el ID');
-      
-      // Busco que el id no sea repetido, sino error;
-      if (this.properties.find(p => p.id === info.id)) {
-        console.log('La propiedad ya existe');
-        return throwError(() => new Error(`Ya existe una propiedad con el mismo ID: ${info.id}`));
-      }
-    }
+  getByCity(city: string): Observable<Property[]> {
+    return of(this.properties
+      .filter(p => p.city.toLowerCase().includes(city.toLowerCase())))
+      .pipe(delay(300));
+  }
 
+  getByDescription(description: string): Observable<Property[]> {
+    return of(this.properties
+      .filter(p => p.description.toLowerCase().includes(description.toLowerCase())))
+      .pipe(delay(300));
+  }
+
+  create(info: Omit<Property, 'id'>): Observable<undefined> {
+    // Si el ID esta vacio, genere un nuevo ID
+    const maxId = this.properties.map(p => p.id).reduce((a, b) => a > b ? a : b);
+    const newProperty: Property = {...info, id: maxId + 1};
+
+    this.properties = [...this.properties, newProperty];
     console.log('Propiedad agregada');
-    this.properties = [...this.properties, info];
-    return of();
+    return of(undefined).pipe(delay(300));
   }
 }
