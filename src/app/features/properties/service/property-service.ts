@@ -9,6 +9,8 @@ export class PropertyService {
   private properties: Property[] = [];
 
   constructor() {
+    this.loadProperties();
+    /*
     this.properties = [
       {
         id: 1,
@@ -52,6 +54,23 @@ export class PropertyService {
       }
 
     ];
+    */
+  }
+
+  private loadProperties(): void {
+    const data = localStorage.getItem('properties');
+    if (data !== null) {
+      const jsonData = JSON.parse(data);
+      this.properties = jsonData;
+    } else {
+      this.properties = [];
+    }
+  }
+
+  private saveProperties(): void {
+    const jsonData = this.properties;
+    const data = JSON.stringify(jsonData);
+    localStorage.setItem('properties', data);
   }
 
   getAll(): Observable<Property[]> {
@@ -76,10 +95,14 @@ export class PropertyService {
 
   create(info: Omit<Property, 'id'>): Observable<undefined> {
     // Si el ID esta vacio, genere un nuevo ID
-    const maxId = this.properties.map(p => p.id).reduce((a, b) => a > b ? a : b);
-    const newProperty: Property = {...info, id: maxId + 1};
+    const maxId = this.properties.length === 0 ? 0
+      : this.properties.map(p => p.id)
+          .reduce((a, b) => a > b ? a : b);
+    const newProperty: Property = { ...info, id: maxId + 1 };
 
     this.properties = [...this.properties, newProperty];
+
+    this.saveProperties();
     console.log('Propiedad agregada');
     return of(undefined).pipe(delay(300));
   }

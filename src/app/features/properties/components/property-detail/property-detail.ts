@@ -1,7 +1,6 @@
-import { Component, signal, computed, OnInit } from '@angular/core';
-import { Property } from '../../model/property';
 import { CurrencyPipe, DecimalPipe } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit, computed, effect, input, signal } from '@angular/core';
+import { Property } from '../../model/property';
 import { PropertyService } from '../../service/property-service';
 
 @Component({
@@ -11,30 +10,29 @@ import { PropertyService } from '../../service/property-service';
   styleUrl: './property-detail.css',
 })
 export class PropertyDetail implements OnInit {
-  private id: string | null = null;
+  protected id = input<string | undefined>();
 
-  protected property?: Property;
+  private idNumeric = computed<number>(() => {
+    if(typeof this.id() === 'string') {
+      return parseInt(this.id()!);
+    }
+    return 0;
+  });
+
+  protected property = signal<Property | undefined>(undefined);
 
   constructor(
-      private route: ActivatedRoute,
-      private router: Router,
       private propertyService: PropertyService,
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe({
-        next: params => {
-          this.id = params.get('id');
-
-          if(this.id !== null) {
-            this.propertyService.getById(parseInt(this.id)).subscribe({
-              next: data => this.property = data,
-              error: () => this.router.navigateByUrl("/404")
-            });
-          }
-        }
-      }
-    );
+    if(this.idNumeric() !== 0) {
+      this.propertyService.getById(this.idNumeric()).subscribe({
+        next: data => this.property.set(data)
+      });
+    } else {
+      this.property.set(undefined);
+    }
   }
 }
 
